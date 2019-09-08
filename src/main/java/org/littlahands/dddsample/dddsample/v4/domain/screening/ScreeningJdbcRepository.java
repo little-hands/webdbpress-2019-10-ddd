@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ScreeningJdbcRepositoryV4 implements ScreeningRepositoryV4 {
+public class ScreeningJdbcRepository implements ScreeningRepository {
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
@@ -18,19 +18,19 @@ public class ScreeningJdbcRepositoryV4 implements ScreeningRepositoryV4 {
   public ScreeningV4 findById(ScreeningId screeningId) {
     List<InterviewV4> interviews =
         jdbcTemplate.query(
-            CONST_INTERVIEWS_SELECT_QUERY,  // (d1)
+            CONST_INTERVIEWS_SELECT_QUERY,  // ①
             new Object[]{screeningId.stringValue()},
             (rs, rowNum) ->
-                InterviewV4.reconstruct( // (d2)
+                InterviewV4.reconstruct( // ②
                     rs.getDate("interview_date").toLocalDate(),
                     rs.getInt("interview_number"),
                     ScreeningStepResult.valueOf(
                         rs.getString("screening_step_result"))));
     return jdbcTemplate.query(
-        CONST_SCREENING_SELECT_QUERY,  // (d4)
+        CONST_SCREENING_SELECT_QUERY,  // ④
         new Object[]{screeningId.stringValue()},
         (rs, rowNum) ->
-            ScreeningV4.reconstruct( // (d4)
+            ScreeningV4.reconstruct( // ④
                 ScreeningId.reconstruct(rs.getString("screening_id")),
                 rs.getDate("apply_date").toLocalDate(),
                 ScreeningStatusV4.valueOf(rs.getString("screening_status")),

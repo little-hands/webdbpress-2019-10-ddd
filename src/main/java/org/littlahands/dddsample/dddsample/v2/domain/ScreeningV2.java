@@ -1,7 +1,7 @@
 package org.littlahands.dddsample.dddsample.v2.domain;
 
 import lombok.Getter;
-import org.littlahands.dddsample.dddsample.v1.domain.ApplicationException;
+import org.littlahands.dddsample.dddsample.shared.ApplicationException;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -21,10 +21,10 @@ public class ScreeningV2 {
   private List<InterviewV2> interviews;
 
 
-  // ファクトリメソッド
+  // 生成メソッド
 
   /**
-   * (d5) デフォルトコンストラクタはprivateにして
+   * ⑤ デフォルトコンストラクタはprivateにして
    * 下記2つのファクトリメソッドからしか呼べなくしている
    */
   private ScreeningV2() {
@@ -40,7 +40,7 @@ public class ScreeningV2 {
     if (isEmpty(applicantEmailAddress) ||
         isInvalidFormatEmailAddress(applicantEmailAddress)) {
       throw new ApplicationException(
-          "メールアドレスが正しくありません.");
+          "メールアドレスが正しくありません");
     }
     ScreeningV2 screening = new ScreeningV2();
     screening.screeningId =
@@ -49,9 +49,9 @@ public class ScreeningV2 {
     screening.applicantEmailAddress =
         applicantEmailAddress;
 
-    // (d1) 初期ステータスは「未応募」
+    // ① 初期ステータスは「未応募」
     screening.status = ScreeningStatusV2.NotApplied;
-    // (d2) 応募日はブランク
+    // ② 応募日はブランク
     screening.applyDate = null;
 
     return screening;
@@ -65,7 +65,7 @@ public class ScreeningV2 {
       throws ApplicationException {
     if (isEmpty(applicantEmailAddress)
         || isInvalidFormatEmailAddress(applicantEmailAddress)) {
-      throw new ApplicationException("メールアドレスが正しくありません.");
+      throw new ApplicationException("メールアドレスが正しくありません");
     }
     ScreeningV2 screening = new ScreeningV2();
     screening.applicantEmailAddress =
@@ -74,10 +74,10 @@ public class ScreeningV2 {
         UUID.randomUUID().toString();
     screening.interviews = Collections.emptyList();
 
-    // (d3) 初期ステータスは「選考中」
+    // ③ 初期ステータスは「選考中」
     screening.status = ScreeningStatusV2.Interview;
 
-    // (d4) 応募日は登録日
+    // ④ 応募日は登録日
     screening.applyDate = LocalDate.now();
     return screening;
   }
@@ -88,18 +88,17 @@ public class ScreeningV2 {
   public void addNextInterview(
       LocalDate interviewDate)
       throws ApplicationException {
-    // (d1) 選考ステータスが「選考中」以外のときには
-    //      設定できない
+    // ① 選考ステータスが「選考中」以外のときには
+    //    設定できない
     if (this.status != ScreeningStatusV2.Interview) {
       throw new ApplicationException("不正な操作です");
     }
 
-    // (d2) 面接次数は1からインクリメントされる
+    // ② 面接次数は1からインクリメントされる
     int nextInterviewNumber =
         this.interviews.size() + 1;
     InterviewV2 nextInterview =
-        new InterviewV2(
-            interviewDate, nextInterviewNumber);
+        new InterviewV2(interviewDate, nextInterviewNumber);
 
     this.interviews.add(nextInterview);
   }

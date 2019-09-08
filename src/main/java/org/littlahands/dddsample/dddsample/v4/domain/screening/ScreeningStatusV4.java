@@ -1,10 +1,8 @@
 package org.littlahands.dddsample.dddsample.v4.domain.screening;
 
 
-import org.littlahands.dddsample.dddsample.v4.domain.ApplicationException;
+import org.littlahands.dddsample.dddsample.shared.ApplicationException;
 
-// @formatter:off
-@SuppressWarnings("Duplicates")
 public enum ScreeningStatusV4 {
   /** 未応募 */
   NotApplied,
@@ -32,7 +30,7 @@ public enum ScreeningStatusV4 {
   Entered;
 
   /**
-   * 次のステップのステータスを取得する  (d1)
+   * 次のステップのステータスを取得する  ①
    */
   public ScreeningStatusV4 nextStep() throws ApplicationException {
     switch (this) {
@@ -84,9 +82,8 @@ public enum ScreeningStatusV4 {
     }
   }
 
-  // (d2)
+  // ②
   public boolean canAddInterview() {
     return this == Interview;
   }
 }
-// @formatter:on

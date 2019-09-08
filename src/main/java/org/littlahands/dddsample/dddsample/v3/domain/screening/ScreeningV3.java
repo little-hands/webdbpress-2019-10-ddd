@@ -1,7 +1,7 @@
 package org.littlahands.dddsample.dddsample.v3.domain.screening;
 
 import lombok.Getter;
-import org.littlahands.dddsample.dddsample.v3.domain.ApplicationException;
+import org.littlahands.dddsample.dddsample.shared.ApplicationException;
 
 import java.time.LocalDate;
 
@@ -16,7 +16,7 @@ public class ScreeningV3 {
   private EmailAddress applicantEmailAddress;
   private Interviews interviews;
 
-  // ファクトリーメソッド
+  // 生成メソッド
 
   private ScreeningV3() {
   }
@@ -68,14 +68,14 @@ public class ScreeningV3 {
 
   // 再構成用メソッド
 
-  // (d1)
+  // ①
   static ScreeningV3 reconstruct(
       ScreeningId screeningId,
       LocalDate applyDate,
       ScreeningStatusV3 status,
       EmailAddress applicantEmailAddress,
       Interviews interviews) {
-    // (d2)
+    // ②
     ScreeningV3 screening = new ScreeningV3();
     screening.screeningId = screeningId;
     screening.applyDate = applyDate;

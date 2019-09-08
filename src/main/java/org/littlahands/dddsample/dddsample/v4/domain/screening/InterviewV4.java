@@ -1,8 +1,6 @@
 package org.littlahands.dddsample.dddsample.v4.domain.screening;
 
 import lombok.Getter;
-import org.littlahands.dddsample.dddsample.v4.domain.screening.InterviewV4;
-import org.littlahands.dddsample.dddsample.v4.domain.screening.ScreeningStepResult;
 
 import java.time.LocalDate;
 

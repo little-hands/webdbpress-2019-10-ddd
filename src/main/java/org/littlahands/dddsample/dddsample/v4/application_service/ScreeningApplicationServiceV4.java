@@ -1,35 +1,25 @@
 package org.littlahands.dddsample.dddsample.v4.application_service;
 
-import org.littlahands.dddsample.dddsample.v4.domain.screening.ScreeningId;
-import org.littlahands.dddsample.dddsample.v4.domain.screening.ScreeningRepositoryV4;
-import org.littlahands.dddsample.dddsample.v4.domain.screening.ScreeningStatusV4;
-import org.littlahands.dddsample.dddsample.v4.domain.screening.ScreeningV4;
+import org.littlahands.dddsample.dddsample.shared.ApplicationException;
 import org.littlahands.dddsample.dddsample.v4.domain.screening.*;
-import org.littlahands.dddsample.dddsample.v4.domain.ApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.littlahands.dddsample.dddsample.v4.domain.screening.ScreeningStatusV4.*;
 
 @Service
 public class ScreeningApplicationServiceV4 {
   @Autowired
-  private ScreeningRepositoryV4 screeningRepository;
+  private ScreeningRepository screeningRepository;
 
   /**
    * 面談から新規候補者を登録する
    */
   @Transactional
-  public void startFromPreInterview(String applicantEmailAddress) throws org.littlahands.dddsample.dddsample.v4.domain.ApplicationException {
+  public void startFromPreInterview(String applicantEmailAddress) throws ApplicationException {
     ScreeningV4 screening =
-        ScreeningV4.startFromPreInterview(new org.littlahands.dddsample.dddsample.v4.domain.screening.EmailAddress(applicantEmailAddress));
+        ScreeningV4.startFromPreInterview(new EmailAddress(applicantEmailAddress));
     screeningRepository.insert(screening);
   }
 
@@ -37,9 +27,9 @@ public class ScreeningApplicationServiceV4 {
    * 新規応募者を登録する
    */
   @Transactional
-  public void apply(String applicantName) throws org.littlahands.dddsample.dddsample.v4.domain.ApplicationException {
+  public void apply(String applicantName) throws ApplicationException {
     ScreeningV4 screening =
-        ScreeningV4.apply(new org.littlahands.dddsample.dddsample.v4.domain.screening.EmailAddress(applicantName));
+        ScreeningV4.apply(new EmailAddress(applicantName));
     screeningRepository.insert(screening);
   }
 
@@ -47,20 +37,12 @@ public class ScreeningApplicationServiceV4 {
    * 次の面接を設定する
    */
   @Transactional
-  public void addNextInterview(String screeningId, LocalDate interviewDate) throws org.littlahands.dddsample.dddsample.v4.domain.ApplicationException {
+  public void addNextInterview(String screeningId, LocalDate interviewDate) throws ApplicationException {
     ScreeningV4 screening = screeningRepository.findById(org.littlahands.dddsample.dddsample.v4.domain.screening.ScreeningId.reconstruct(screeningId));
     screening.addNextInterview(interviewDate);
     screeningRepository.update(screening);
   }
 
-  // 以下 ステータス遷移説明用のプロパティ、メソッド
-
-  /**
-   * 許可する遷移パターンを保持するMap
-   * Keyが遷移元のパターン、
-   * Valueが許可された遷移先パターンを表す
-   */
-  private Map<ScreeningStatusV4, List<ScreeningStatusV4>> permittedStatuses;
 
   /**
    * 採用選考を次のステップに進める

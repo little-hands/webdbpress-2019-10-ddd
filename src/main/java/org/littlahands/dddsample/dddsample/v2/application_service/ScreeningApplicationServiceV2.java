@@ -1,8 +1,8 @@
 package org.littlahands.dddsample.dddsample.v2.application_service;
 
-import org.littlahands.dddsample.dddsample.v1.domain.ApplicationException;
+import org.littlahands.dddsample.dddsample.shared.ApplicationException;
+import org.littlahands.dddsample.dddsample.v2.domain.ScreeningRepository;
 import org.littlahands.dddsample.dddsample.v2.domain.ScreeningV2;
-import org.littlahands.dddsample.dddsample.v2.domain.dao.ScreeningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +43,7 @@ public class ScreeningApplicationServiceV2 {
    */
   @Transactional
   public void addNextInterview(
-      Long screeningId, LocalDate interviewDate)
+      String screeningId, LocalDate interviewDate)
       throws ApplicationException {
     // 永続化されたオブジェクトを「集約単位で」取得
     ScreeningV2 screening =

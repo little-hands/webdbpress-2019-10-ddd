@@ -8,7 +8,7 @@ import java.util.List;
 
 @SuppressWarnings("SqlNoDataSourceInspection")
 @Component
-class ScreeningJdbcRepositoryV3 implements ScreeningRepositoryV3 {
+class ScreeningJdbcRepository implements ScreeningRepository {
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
@@ -19,19 +19,19 @@ class ScreeningJdbcRepositoryV3 implements ScreeningRepositoryV3 {
   public ScreeningV3 findById(ScreeningId screeningId) {
     List<InterviewV3> interviews =
         jdbcTemplate.query(
-            CONST_INTERVIEWS_SELECT_QUERY,  // (d1)
+            CONST_INTERVIEWS_SELECT_QUERY,  // ①
             new Object[]{screeningId.stringValue()},
             (rs, rowNum) ->
-                InterviewV3.reconstruct( // (d2)
+                InterviewV3.reconstruct( // ②
                     rs.getDate("interview_date").toLocalDate(),
                     rs.getInt("interview_number"),
                     ScreeningStepResult.valueOf(
                         rs.getString("screening_step_result"))));
     return jdbcTemplate.query(
-        CONST_SCREENING_SELECT_QUERY,  // (d3)
+        CONST_SCREENING_SELECT_QUERY,  // ③
         new Object[]{screeningId.stringValue()},
         (rs, rowNum) ->
-            ScreeningV3.reconstruct( // (d4)
+            ScreeningV3.reconstruct( // ④
                 ScreeningId.reconstruct(rs.getString("screening_id")),
                 rs.getDate("apply_date").toLocalDate(),
                 ScreeningStatusV3.valueOf(rs.getString("screening_status")),

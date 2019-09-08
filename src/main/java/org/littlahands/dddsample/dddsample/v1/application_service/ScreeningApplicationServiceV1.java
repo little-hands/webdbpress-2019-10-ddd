@@ -1,11 +1,11 @@
 package org.littlahands.dddsample.dddsample.v1.application_service;
 
-import org.littlahands.dddsample.dddsample.v1.domain.ApplicationException;
-import org.littlahands.dddsample.dddsample.v1.domain.ScreeningStatusV1;
+import org.littlahands.dddsample.dddsample.shared.ApplicationException;
 import org.littlahands.dddsample.dddsample.v1.domain.InterviewV1;
+import org.littlahands.dddsample.dddsample.v1.domain.ScreeningStatusV1;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningV1;
-import org.littlahands.dddsample.dddsample.v1.domain.dao.ScreeningDao;
 import org.littlahands.dddsample.dddsample.v1.domain.dao.InterviewDao;
+import org.littlahands.dddsample.dddsample.v1.domain.dao.ScreeningDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +16,9 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 import static org.littlahands.dddsample.dddsample.shared.Const.CONST_EMAIL_REGEX;
-import static org.littlahands.dddsample.dddsample.v1.domain.ScreeningStatusV1.Interview;
 
 @Service
-public class ScreeningInterviewApplicationServiceV1 {
+public class ScreeningApplicationServiceV1 {
   @Autowired
   private ScreeningDao screeningDao;
   @Autowired
@@ -35,7 +34,7 @@ public class ScreeningInterviewApplicationServiceV1 {
     if (isEmpty(applicantEmailAddress) ||
         isInvalidFormatEmailAddress(applicantEmailAddress)) {
       throw new ApplicationException(
-          "メールアドレスが正しくありません.");
+          "メールアドレスが正しくありません");
     }
     // デフォルトコンストラクタでインスタンス作成
     ScreeningV1 screening = new ScreeningV1();
@@ -75,7 +74,7 @@ public class ScreeningInterviewApplicationServiceV1 {
       throws ApplicationException {
     if (isEmpty(applicantEmailAddress) ||
         isInvalidFormatEmailAddress(applicantEmailAddress)) {
-      throw new ApplicationException("メールアドレスが正しくありません.");
+      throw new ApplicationException("メールアドレスが正しくありません");
     }
 
     ScreeningV1 screening = new ScreeningV1();

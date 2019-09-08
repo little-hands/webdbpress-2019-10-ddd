@@ -12,14 +12,16 @@ public class InterviewDao {
     return new InterviewV1();
   }
 
+  public List<InterviewV1> findByScreeningId(String screeningId) {
+    // select文省略
+    return Collections.emptyList();
+  }
+
   public void insert(InterviewV1 interview) {
+    // insert文省略
   }
 
   public void update(InterviewV1 interview) {
-
-  }
-
-  public List<InterviewV1> findByScreeningId(String screeningId) {
-    return Collections.emptyList();
+    // select文省略
   }
 }

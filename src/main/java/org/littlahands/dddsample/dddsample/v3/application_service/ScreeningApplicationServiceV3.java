@@ -1,7 +1,7 @@
 package org.littlahands.dddsample.dddsample.v3.application_service;
 
+import org.littlahands.dddsample.dddsample.shared.ApplicationException;
 import org.littlahands.dddsample.dddsample.v3.domain.screening.*;
-import org.littlahands.dddsample.dddsample.v3.domain.ApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +17,7 @@ import static org.littlahands.dddsample.dddsample.v3.domain.screening.ScreeningS
 @Service
 public class ScreeningApplicationServiceV3 {
   @Autowired
-  private ScreeningRepositoryV3 screeningRepository;
+  private ScreeningRepository screeningRepository;
 
   /**
    * 面談から新規候補者を登録する
