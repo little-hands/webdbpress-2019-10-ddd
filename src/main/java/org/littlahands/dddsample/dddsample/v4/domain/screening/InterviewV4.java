@@ -1,6 +1,8 @@
 package org.littlahands.dddsample.dddsample.v4.domain.screening;
 
 import lombok.Getter;
+import org.littlahands.dddsample.dddsample.v4.domain.screening.InterviewV4;
+import org.littlahands.dddsample.dddsample.v4.domain.screening.ScreeningStepResult;
 
 import java.time.LocalDate;
 
@@ -10,7 +12,7 @@ public class InterviewV4 {
 
   private int interviewNumber;
 
-  private ScreeningStepResultV4 screeningStepResult;
+  private ScreeningStepResult screeningStepResult;
 
   InterviewV4(LocalDate interviewDate, int interviewNumber) {
     // 引数の値を設定
@@ -18,6 +20,17 @@ public class InterviewV4 {
     this.interviewNumber = interviewNumber;
 
     // このコンストラクタを通った場合には必ず指定される値
-    this.screeningStepResult = ScreeningStepResultV4.NotEvaluated;
+    this.screeningStepResult = ScreeningStepResult.NotEvaluated;
+  }
+
+  private InterviewV4() {
+  }
+
+  static InterviewV4 reconstruct(LocalDate interviewDate, int interviewNumber, ScreeningStepResult screeningStepResult) {
+    InterviewV4 interview = new InterviewV4();
+    interview.interviewDate = interviewDate;
+    interview.interviewNumber = interviewNumber;
+    interview.screeningStepResult = screeningStepResult;
+    return interview;
   }
 }

@@ -7,37 +7,50 @@ import java.util.regex.Pattern;
 
 import static org.littlahands.dddsample.dddsample.shared.Const.CONST_EMAIL_REGEX;
 
-@EqualsAndHashCode
+@EqualsAndHashCode // (d1)
 public class EmailAddress {
+  // プリミティブな値を保持する変数
   private String value;
 
   public EmailAddress(String value) throws ApplicationException {
-    if (isEmpty(value) || isInvalidFormat(value)) {
-      throw new ApplicationException("Invalid applicant name.");
+    // コンストラクタの中で書式チェックしているので、
+    // 書式チェックが通ったものしかインスタンス化されない
+    if (isEmpty(value) ||
+        isInvalidFormatEmailAddress(value)) {
+      throw new ApplicationException("メールアドレスが正しくありません");
     }
     this.value = value;
-  }
-
-  private boolean isEmpty(String value) {
-    return value == null || value.length() == 0;
-  }
-
-  private boolean isInvalidFormat(String email) {
-    String emailRegex = CONST_EMAIL_REGEX; // 適切な正規表現が記述されているとする
-    return !Pattern.compile(emailRegex).matcher(email).matches();
-  }
-
-  public String stringValue() {
-    return value;
   }
 
   private EmailAddress() {
   }
 
-  // 永続化やフロントに返す際にに必要になる、オブジェクトの中の値を取得するメソッド
-  public static EmailAddress reconstruct(String value) {
+  static EmailAddress reconstruct(String value) {
     EmailAddress emailAddress = new EmailAddress();
     emailAddress.value = value;
     return emailAddress;
+  }
+
+
+  // 永続化やフロントに返す際に必要になる、
+  // オブジェクトの中の値を取得するメソッド
+  public String stringValue() {
+    return value;
+  }
+
+  // 文字列の空白チェック用メソッド
+  private boolean isEmpty(String value) {
+    return value == null || value.length() == 0;
+  }
+
+  // メールアドレスのバリデーション用メソッド
+  private boolean isInvalidFormatEmailAddress(String email) {
+    if (email == null) {
+      return false;
+    }
+    // CONST_EMAIL_REGEXは適切な正規表現が記述されているとする
+    String emailRegex = CONST_EMAIL_REGEX;
+    return !Pattern.compile(emailRegex)
+        .matcher(email).matches();
   }
 }

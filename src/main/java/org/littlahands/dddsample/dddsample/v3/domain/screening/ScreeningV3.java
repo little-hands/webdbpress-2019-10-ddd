@@ -9,27 +9,28 @@ import java.time.LocalDate;
 @Getter
 public class ScreeningV3 {
 
-  // 各プロパティが新たに作成したクラスになっている
-  private ScreeningIdV3 screeningId;
+  // 各プロパティの型が新たに定義したクラスになっている
+  private ScreeningId screeningId;
   private LocalDate applyDate;
   private ScreeningStatusV3 status;
   private EmailAddress applicantEmailAddress;
   private Interviews interviews;
 
-  // factory methods
+  // ファクトリーメソッド
 
   private ScreeningV3() {
   }
 
-  public static ScreeningV3 startFromPreInterview(EmailAddress applicantEmailAddress) {
+  public static ScreeningV3 startFromPreInterview(
+      EmailAddress applicantEmailAddress) {
     ScreeningV3 screening = new ScreeningV3();
 
-    // メールアドレスインスタンスは正しいものしか生成されないので、
+    // EmailAddressインスタンスは正しいものしか生成されないので、
     // Screeningクラスでのバリデーションは不要になっている
     screening.applicantEmailAddress = applicantEmailAddress;
 
-    // ScreeningId,Interviewsの初期値判断は各オブジェクトに移譲している
-    screening.screeningId = new ScreeningIdV3();
+    // ScreeningId,Interviewsの初期値判断は各オブジェクトに委譲している
+    screening.screeningId = new ScreeningId();
     screening.interviews = new Interviews();
 
     screening.status = ScreeningStatusV3.NotApplied;
@@ -40,33 +41,41 @@ public class ScreeningV3 {
   public static ScreeningV3 apply(EmailAddress applicantEmailAddress) {
     ScreeningV3 screening = new ScreeningV3();
     screening.applicantEmailAddress = applicantEmailAddress;
-    screening.screeningId = new ScreeningIdV3();
+    screening.screeningId = new ScreeningId();
     screening.interviews = new Interviews();
     screening.status = ScreeningStatusV3.Interview;
     screening.applyDate = LocalDate.now();
     return screening;
   }
 
-  // mutator methods
+  // ミューテーションメソッド
 
-  public void addNextInterview(LocalDate interviewDate) throws ApplicationException {
+  public void addNextInterview(LocalDate interviewDate)
+      throws ApplicationException {
     // どのステータスだとinterviewを追加できるかの判断は、
-    // ScreeningStatusに移譲する
+    // ScreeningStatusに委譲している
     if (!this.status.canAddInterview()) {
-      throw new ApplicationException("Invalid operation");
+      throw new ApplicationException("不正な操作です");
     }
 
-    // インタビュー次数の判断はInterviewsクラスに移譲する
+    // インタビュー次数の判断はInterviewsクラスに委譲している
     this.interviews.addNextInterview(interviewDate);
   }
 
-  // Javaのデフォルト可視性はパッケージプライベートなので、
-  // 同じパッケージ外からは参照できない
-  static ScreeningV3 reconstruct(ScreeningIdV3 screeningId,
-                                 LocalDate applyDate,
-                                 ScreeningStatusV3 status,
-                                 EmailAddress applicantEmailAddress,
-                                 Interviews interviews) {
+  public void setStatus(ScreeningStatusV3 screeningStatus) {
+    this.status = screeningStatus;
+  }
+
+  // 再構成用メソッド
+
+  // (d1)
+  static ScreeningV3 reconstruct(
+      ScreeningId screeningId,
+      LocalDate applyDate,
+      ScreeningStatusV3 status,
+      EmailAddress applicantEmailAddress,
+      Interviews interviews) {
+    // (d2)
     ScreeningV3 screening = new ScreeningV3();
     screening.screeningId = screeningId;
     screening.applyDate = applyDate;
@@ -75,4 +84,6 @@ public class ScreeningV3 {
     screening.interviews = interviews;
     return screening;
   }
+
+
 }

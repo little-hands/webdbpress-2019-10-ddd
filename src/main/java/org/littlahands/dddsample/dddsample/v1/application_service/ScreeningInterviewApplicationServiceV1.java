@@ -8,6 +8,7 @@ import org.littlahands.dddsample.dddsample.v1.domain.dao.ScreeningDao;
 import org.littlahands.dddsample.dddsample.v1.domain.dao.InterviewDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,60 +26,93 @@ public class ScreeningInterviewApplicationServiceV1 {
   private InterviewDao interviewDao;
 
   /**
-   * 面談から新規候補者を登録します
+   * 面談から新規候補者を登録する
    */
-  public void startFromPreInterview(String applicantEmailAddress) throws ApplicationException {
-    if (applicantEmailAddress == null || applicantEmailAddress.length() == 0
-        || isInvalidEmailAddress(applicantEmailAddress)) {
-      throw new ApplicationException("Invalid applicant name.");
+  @Transactional
+  public void startFromPreInterview(String applicantEmailAddress)
+      throws ApplicationException {
+    // 入力チェック
+    if (isEmpty(applicantEmailAddress) ||
+        isInvalidFormatEmailAddress(applicantEmailAddress)) {
+      throw new ApplicationException(
+          "メールアドレスが正しくありません.");
     }
+    // デフォルトコンストラクタでインスタンス作成
     ScreeningV1 screening = new ScreeningV1();
+    // IDはUUIDを使用
     screening.setScreeningId(UUID.randomUUID().toString());
+    // 面談からの場合はステータス「未応募」で登録
     screening.setStatus(ScreeningStatusV1.NotApplied);
-    screening.setApplyDate(null); // 未応募なので応募日はnull
-    screening.setApplicantEmailAddress(applicantEmailAddress);
+    // 未応募なので応募日はnull
+    screening.setApplyDate(null);
+    // メールアドレスは引数のものを登録
+    screening.setApplicantEmailAddress(
+        applicantEmailAddress);
     screeningDao.insert(screening);
   }
 
-  /**
-   * 新規応募者を登録します.
-   */
-  public void apply(String applicantEmailAddress) throws ApplicationException {
-    if (applicantEmailAddress == null || applicantEmailAddress.length() == 0
-        || isInvalidEmailAddress(applicantEmailAddress)) {
-      throw new ApplicationException("Invalid applicant name.");
+  // 文字列の空白チェック用メソッド
+  private boolean isEmpty(String value) {
+    return value == null || value.length() == 0;
+  }
+
+  // メールアドレスのバリデーション用メソッド
+  private boolean isInvalidFormatEmailAddress(String email) {
+    if (email == null) {
+      return false;
     }
+    // CONST_EMAIL_REGEXは適切な正規表現が記述されているとする
+    String emailRegex = CONST_EMAIL_REGEX;
+    return !Pattern.compile(emailRegex)
+        .matcher(email).matches();
+  }
+
+  /**
+   * 新規応募者を登録する
+   */
+  @Transactional
+  public void apply(String applicantEmailAddress)
+      throws ApplicationException {
+    if (isEmpty(applicantEmailAddress) ||
+        isInvalidFormatEmailAddress(applicantEmailAddress)) {
+      throw new ApplicationException("メールアドレスが正しくありません.");
+    }
+
     ScreeningV1 screening = new ScreeningV1();
     screening.setScreeningId(UUID.randomUUID().toString());
-    screening.setStatus(Interview);
+    // 面接からの場合はステータス「面接」で登録
+    screening.setStatus(ScreeningStatusV1.Interview);
+    // 応募日は操作日付を使用
     screening.setApplyDate(LocalDate.now());
     screening.setApplicantEmailAddress(applicantEmailAddress);
     screeningDao.insert(screening);
   }
 
-  private boolean isInvalidEmailAddress(String email) {
-    if (email == null)
-      return false;
-    String deficientRegex = CONST_EMAIL_REGEX; // 適切な正規表現が記述されているとする
-    return !Pattern.compile(deficientRegex).matcher(email).matches();
-  }
-
   /**
-   * 次の面接を設定します。
+   * 次の面接を設定する
    */
-  public void addNextInterview(String screeningId, LocalDate interviewDate)
+  @Transactional
+  public void addNextInterview(
+      String screeningId, LocalDate interviewDate)
       throws ApplicationException {
+
+    // 保存されている採用選考オブジェクトを取得
     ScreeningV1 screening = screeningDao.findScreeningById(screeningId);
+
+    // 面接設定をしてよいステータスかをチェック
     if (screening.getStatus() != ScreeningStatusV1.Interview) {
-      throw new ApplicationException("Invalid operation");
+      throw new ApplicationException("不正な操作です");
     }
 
-    List<InterviewV1> interviewV1s = interviewDao.findByScreeningId(screeningId);
+    // 保存されている面接オブジェクトの一覧を取得
+    List<InterviewV1> interviews =
+        interviewDao.findByScreeningId(screeningId);
 
     InterviewV1 interview = new InterviewV1();
     interview.setInterviewId(UUID.randomUUID().toString());
     interview.setScreeningId(screeningId);
-    interview.setInterviewNumber(interviewV1s.size() + 1);
+    // 面接次数は保存されているインタビューの数+1とする
+    interview.setInterviewNumber(interviews.size() + 1);
     interview.setScreeningDate(interviewDate);
     interviewDao.insert(interview);
   }

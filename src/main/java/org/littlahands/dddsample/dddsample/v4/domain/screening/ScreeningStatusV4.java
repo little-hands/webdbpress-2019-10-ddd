@@ -32,7 +32,7 @@ public enum ScreeningStatusV4 {
   Entered;
 
   /**
-   * 次のステップのステータスを取得します
+   * 次のステップのステータスを取得する  (d1)
    */
   public ScreeningStatusV4 nextStep() throws ApplicationException {
     switch (this) {
@@ -43,8 +43,9 @@ public enum ScreeningStatusV4 {
       default:                      throw new ApplicationException("許可されていない状態遷移です。");
     }
   }
+
   /**
-   * 「戻る」した時のステータスを取得します
+   * 「戻る」した時のステータスを取得する
    */
   public ScreeningStatusV4 previousStep() throws ApplicationException {
     switch (this) {
@@ -59,8 +60,9 @@ public enum ScreeningStatusV4 {
       default:                                throw new ApplicationException("許可されていない状態遷移です。");
     }
   }
+
   /**
-   * 「不合格」した時のステータスを取得します
+   * 「不合格」した時のステータスを取得する
    */
   public ScreeningStatusV4 rejectStep() throws ApplicationException {
     switch (this) {
@@ -69,8 +71,9 @@ public enum ScreeningStatusV4 {
       default:                       throw new ApplicationException("許可されていない状態遷移です。");
     }
   }
+
   /**
-   * 「辞退」した時のステータスを取得します
+   * 「辞退」した時のステータスを取得する
    */
   public ScreeningStatusV4 declineStep() throws ApplicationException {
     switch (this) {
@@ -81,6 +84,7 @@ public enum ScreeningStatusV4 {
     }
   }
 
+  // (d2)
   public boolean canAddInterview() {
     return this == Interview;
   }
