@@ -33,7 +33,7 @@ DDDで使用するアーキテクチャついては、以下ブログ記事に�
 
 
 ## ご質問、問い合わせなど
-* 記事内容やDDDに関するご質問、お問い合わせは[質問箱](https://peing.net/ja/little_hands)、もしくは上述のTwitterで受け付けています。お気軽にご相談ください。
+* 記事内容やDDDに関するご質問、お問い合わせは[質問箱](https://peing.net/ja/little_hands)、もしくは上述の[Twitter](https://twitter.com/little_hand_s)のDMで受け付けています。お気軽にご相談ください。
 
 
 
