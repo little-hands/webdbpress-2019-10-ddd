@@ -24,13 +24,13 @@ DDDで使用するアーキテクチャついては、以下ブログ記事に�
 
 
 # 著者
-* 名前: 松岡 幸一郎
-* ブログ: https://little-hands.hatenablog.com/entry/top
-* Twitter: [@little_hand_s](https://twitter.com/little_hand_s)
+*  松岡 幸一郎
+  * ブログ: https://little-hands.hatenablog.com/entry/top
+  * Twitter: [@little_hand_s](https://twitter.com/little_hand_s)
 
-* 名前: 成瀬 允宣
-* ブログ: https://nrslib.com/
-* Twitter: [@nrslib](https://twitter.com/nrslib)
+* 成瀬 允宣
+  * ブログ: https://nrslib.com/
+  * Twitter: [@nrslib](https://twitter.com/nrslib)
 
 
 ## ご質問、問い合わせなど
