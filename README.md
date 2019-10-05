@@ -27,13 +27,16 @@ DDDで使用するアーキテクチャついては、以下ブログ記事に�
 * 松岡 幸一郎
   * ブログ: https://little-hands.hatenablog.com/
   * Twitter: [@little_hand_s](https://twitter.com/little_hand_s)
+  * 勉強会/ハンズオンなど :https://little-hands.hatenablog.com/entry/2019/10/05/seminars
 * 成瀬 允宣
   * ブログ: https://nrslib.com/
   * Twitter: [@nrslib](https://twitter.com/nrslib)
 
 
-## ご質問、問い合わせなど
-* 記事内容やDDDに関するご質問、お問い合わせは[質問箱](https://peing.net/ja/little_hands)、もしくは上述の[Twitter](https://twitter.com/little_hand_s)のDMで受け付けています。お気軽にご相談ください。
+# ご質問、問い合わせなど
+記事内容やDDDに関するご質問、お問い合わせは[質問箱](https://peing.net/ja/little_hands)、もしくは上述の[Twitter](https://twitter.com/little_hand_s)のDMで受け付けています。お気軽にご相談ください。
 
-
+また、下記内容のような講演も行なっております
+[DDD戦術的設計基礎セミナー](https://little-hands.hatenablog.com/entry/2019/09/19/ddd-pattern-lesson)  
+[ドメインモデリングハンズオン](https://www.m3tech.blog/entry/2019/06/25/110000)
 
