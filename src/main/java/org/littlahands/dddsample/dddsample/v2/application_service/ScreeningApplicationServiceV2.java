@@ -20,6 +20,7 @@ public class ScreeningApplicationServiceV2 {
   @Transactional
   public void startFromPreInterview(String applicantEmailAddress)
       throws ApplicationException {
+
     // ファクトリメソッドでインスタンスを生成し、そのまま保存
     ScreeningV2 screening =
         ScreeningV2.startFromPreInterview(applicantEmailAddress);
@@ -42,8 +43,7 @@ public class ScreeningApplicationServiceV2 {
    * 次の面接を設定する
    */
   @Transactional
-  public void addNextInterview(
-      String screeningId, LocalDate interviewDate)
+  public void addNextInterview(String screeningId, LocalDate interviewDate)
       throws ApplicationException {
     // 永続化されたオブジェクトを「集約単位で」取得
     ScreeningV2 screening =
