@@ -27,7 +27,6 @@ DDDで使用するアーキテクチャついては、以下ブログ記事に�
 * 松岡 幸一郎
   * ブログ: https://little-hands.hatenablog.com/
   * Twitter: [@little_hand_s](https://twitter.com/little_hand_s)
-  * 勉強会/ハンズオンなど :https://little-hands.hatenablog.com/entry/2019/10/05/seminars
 * 成瀬 允宣
   * ブログ: https://nrslib.com/
   * Twitter: [@nrslib](https://twitter.com/nrslib)
