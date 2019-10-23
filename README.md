@@ -1,5 +1,5 @@
 ## About
-[WEB+DB PRESS Vol.113](https://www.amazon.co.jp/WEB-DB-PRESS-Vol-113-PRESS%E7%B7%A8%E9%9B%86%E9%83%A8/dp/4297109050/ref=sr_1_1?qid=1570143543&s=books&sr=1-1&tag=maftracking156404-22&text=WEB%2BDB+PRESS%E7%B7%A8%E9%9B%86%E9%83%A8) 掲載  
+[WEB+DB PRESS Vol.113](https://www.amazon.co.jp/WEB-DB-PRESS-Vol-113-PRESS%E7%B7%A8%E9%9B%86%E9%83%A8-ebook/dp/B07ZCPPHK2/ref=tmm_kin_swatch_0?_encoding=UTF8&tag=maftracking156404-22&qid=1570143543&sr=1-1) 掲載  
 「体験 ドメイン駆動設計 モデリングから実装までを一気に制覇」の3〜4章におけるサンプルコードです。  
 なお、解説用のコードのため、アプリケーション起動やテスト実行はできませんのでご了承ください。
 
