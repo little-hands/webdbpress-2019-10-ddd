@@ -15,7 +15,7 @@
 
 ## パッケージ構造
 
-`org.littlahands.dddsample.dddsample` 以下のパッケージ `v1` 〜 `v4` に、本文中のバージョン1から4までのコードが一通り入っています。v1から順に見ればリファクタリングの様子が追えるようになっています。
+[org.littlahands.dddsample.dddsample](https://github.com/little-hands/webdbpress-2019-10-ddd/tree/master/src/main/java/org/littlahands/dddsample/dddsample) 以下のパッケージ `v1` 〜 `v4` に、本文中のバージョン1から4までのコードが一通り入っています。v1から順に見ればリファクタリングの様子が追えるようになっています。
 
 ## 参考記事
 DDDで使用するアーキテクチャついては、以下ブログ記事に詳細な説明がありますので、よろしければご参照ください。
