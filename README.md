@@ -43,5 +43,5 @@ https://little-hands.hatenablog.com/entry/2019/10/05/seminars
 
 
 ### お願い
-Twitterハッシュタグ `#体験DDD` で感想を呟いていただけると非常に励みになります。よろしくお願いします。笑
+Twitterハッシュタグ[#体験DDD](https://twitter.com/search?q=%23%E4%BD%93%E9%A8%93DDD&src=typed_query&f=live)で感想を呟いていただけると非常に励みになります。よろしくお願いします。笑
 
