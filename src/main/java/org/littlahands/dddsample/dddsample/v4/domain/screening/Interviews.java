@@ -1,7 +1,7 @@
 package org.littlahands.dddsample.dddsample.v4.domain.screening;
 
 import java.time.LocalDate;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Interviews {
@@ -10,7 +10,7 @@ public class Interviews {
 
   Interviews() {
     // コンストラクタの中でListの初期化を行う
-    this.interviews = Collections.emptyList();
+    this.interviews = new ArrayList<>();
   }
 
   /**

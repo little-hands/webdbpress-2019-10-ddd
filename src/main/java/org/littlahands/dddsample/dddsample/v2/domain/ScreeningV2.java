@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.littlahands.dddsample.dddsample.shared.ApplicationException;
 
 import java.time.LocalDate;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -45,7 +45,7 @@ public class ScreeningV2 {
     ScreeningV2 screening = new ScreeningV2();
     screening.screeningId =
         UUID.randomUUID().toString();
-    screening.interviews = Collections.emptyList();
+    screening.interviews = new ArrayList<>();
     screening.applicantEmailAddress =
         applicantEmailAddress;
 
@@ -72,7 +72,7 @@ public class ScreeningV2 {
         applicantEmailAddress;
     screening.screeningId =
         UUID.randomUUID().toString();
-    screening.interviews = Collections.emptyList();
+    screening.interviews = new ArrayList<>();
 
     // ③ 初期ステータスは「選考中」
     screening.status = ScreeningStatusV2.Interview;
