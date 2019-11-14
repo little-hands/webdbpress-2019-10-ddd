@@ -1,5 +1,6 @@
 package org.littlahands.dddsample.dddsample.v1.application_service;
 
+import lombok.Getter;
 import org.littlahands.dddsample.dddsample.shared.ApplicationException;
 import org.littlahands.dddsample.dddsample.v1.domain.InterviewV1;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningStatusV1;
@@ -18,6 +19,7 @@ import java.util.regex.Pattern;
 import static org.littlahands.dddsample.dddsample.shared.Const.CONST_EMAIL_REGEX;
 
 @Service
+@Getter
 public class ScreeningApplicationServiceV1 {
   @Autowired
   private ScreeningDao screeningDao;
@@ -96,7 +98,7 @@ public class ScreeningApplicationServiceV1 {
       throws ApplicationException {
 
     // 保存されている採用選考オブジェクトを取得
-    ScreeningV1 screening = screeningDao.findScreeningById(screeningId);
+    ScreeningV1 screening = screeningDao.findScreeningById(screeningId).get();
 
     // 面接設定をしてよいステータスかをチェック
     if (screening.getStatus() != ScreeningStatusV1.Interview) {
@@ -118,4 +120,14 @@ public class ScreeningApplicationServiceV1 {
 
   // 面談から面接に進む処理は省略
 
+  //
+
+
+  public ScreeningApplicationServiceV1(ScreeningDao screeningDao, InterviewDao interviewDao) {
+    this.screeningDao = screeningDao;
+    this.interviewDao = interviewDao;
+  }
+
+  public ScreeningApplicationServiceV1() {
+  }
 }

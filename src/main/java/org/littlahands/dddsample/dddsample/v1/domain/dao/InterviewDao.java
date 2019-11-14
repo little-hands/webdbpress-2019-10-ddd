@@ -5,23 +5,14 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
-@Component
-public class InterviewDao {
-  public InterviewV1 findById(Long interviewId) {
-    return new InterviewV1();
-  }
+public interface InterviewDao {
+    Optional<InterviewV1> findById(String interviewId);
 
-  public List<InterviewV1> findByScreeningId(String screeningId) {
-    // select文省略
-    return Collections.emptyList();
-  }
+    List<InterviewV1> findByScreeningId(String screeningId);
 
-  public void insert(InterviewV1 interview) {
-    // insert文省略
-  }
+    void insert(InterviewV1 interview);
 
-  public void update(InterviewV1 interview) {
-    // select文省略
-  }
+    void update(InterviewV1 interview);
 }
