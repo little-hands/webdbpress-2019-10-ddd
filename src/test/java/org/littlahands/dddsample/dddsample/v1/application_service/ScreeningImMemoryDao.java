@@ -21,4 +21,12 @@ public class ScreeningImMemoryDao implements ScreeningDao {
     public void insert(ScreeningV1 screening) {
         data.put(screening.getScreeningId(), screening);
     }
+
+    @Override
+    public Optional<ScreeningV1> findScreeningByEmailAddress(String emailAddress) {
+        return data.entrySet().stream()
+            .filter(e -> e.getValue().getApplicantEmailAddress().equals(emailAddress))
+            .map(Map.Entry::getValue)
+            .findAny();
+    }
 }

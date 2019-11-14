@@ -19,7 +19,6 @@ import java.util.regex.Pattern;
 import static org.littlahands.dddsample.dddsample.shared.Const.CONST_EMAIL_REGEX;
 
 @Service
-@Getter
 public class ScreeningApplicationServiceV1 {
   @Autowired
   private ScreeningDao screeningDao;
@@ -64,8 +63,9 @@ public class ScreeningApplicationServiceV1 {
     }
     // CONST_EMAIL_REGEXは適切な正規表現が記述されているとする
     String emailRegex = CONST_EMAIL_REGEX;
-    return !Pattern.compile(emailRegex)
-        .matcher(email).matches();
+    return false;
+//    return !Pattern.compile(emailRegex)
+//        .matcher(email).matches();
   }
 
   /**

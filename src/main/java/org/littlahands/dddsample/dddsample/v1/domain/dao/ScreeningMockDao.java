@@ -18,4 +18,9 @@ public class ScreeningMockDao implements ScreeningDao {
     public void insert(ScreeningV1 screening) {
         // insert文省略
     }
+
+    @Override
+    public Optional<ScreeningV1> findScreeningByEmailAddress(String emailAddress) {
+        return Optional.empty();
+    }
 }
