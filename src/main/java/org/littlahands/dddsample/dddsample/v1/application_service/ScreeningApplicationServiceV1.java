@@ -63,9 +63,8 @@ public class ScreeningApplicationServiceV1 {
     }
     // CONST_EMAIL_REGEXは適切な正規表現が記述されているとする
     String emailRegex = CONST_EMAIL_REGEX;
-    return false;
-//    return !Pattern.compile(emailRegex)
-//        .matcher(email).matches();
+    return !Pattern.compile(emailRegex)
+        .matcher(email).matches();
   }
 
   /**

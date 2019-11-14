@@ -27,7 +27,7 @@ public class ScreeningApplicationServiceV1Test {
   }
 
   @Test
-  public void test() throws ApplicationException {
+  public void startFromPreInterview_success() throws ApplicationException {
     // when: 正しいメールアドレスで登録すると
     String emailAddress = "a@example.com";
     applicationService.startFromPreInterview(emailAddress);
@@ -37,5 +37,15 @@ public class ScreeningApplicationServiceV1Test {
     assertThat(savedScreening.getScreeningId(), is(notNullValue()));
     assertThat(savedScreening.getStatus(), is(ScreeningStatusV1.NotApplied));
   }
+
+  @Test(expected = ApplicationException.class)
+  public void startFromPreInterview_fail_emailAddress() throws ApplicationException {
+    // when: 正しくないメールアドレスで登録すると
+    String emailAddress = "aexample.com";
+
+    // then: 例外が投げられる
+    applicationService.startFromPreInterview(emailAddress);
+  }
+
 
 }
