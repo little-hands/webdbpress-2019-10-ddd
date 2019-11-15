@@ -1,7 +1,10 @@
 package org.littlahands.dddsample.dddsample.v4.application_service;
 
 import org.littlahands.dddsample.dddsample.shared.ApplicationException;
-import org.littlahands.dddsample.dddsample.v4.domain.screening.*;
+import org.littlahands.dddsample.dddsample.v4.domain.screening.EmailAddress;
+import org.littlahands.dddsample.dddsample.v4.domain.screening.ScreeningId;
+import org.littlahands.dddsample.dddsample.v4.domain.screening.ScreeningRepository;
+import org.littlahands.dddsample.dddsample.v4.domain.screening.ScreeningV4;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

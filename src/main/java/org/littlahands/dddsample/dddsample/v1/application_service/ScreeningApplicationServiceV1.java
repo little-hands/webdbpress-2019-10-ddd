@@ -1,6 +1,5 @@
 package org.littlahands.dddsample.dddsample.v1.application_service;
 
-import lombok.Getter;
 import org.littlahands.dddsample.dddsample.shared.ApplicationException;
 import org.littlahands.dddsample.dddsample.v1.domain.InterviewV1;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningStatusV1;
