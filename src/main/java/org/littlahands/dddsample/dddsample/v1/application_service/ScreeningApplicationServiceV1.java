@@ -4,8 +4,8 @@ import org.littlahands.dddsample.dddsample.shared.ApplicationException;
 import org.littlahands.dddsample.dddsample.v1.domain.InterviewV1;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningStatusV1;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningV1;
-import org.littlahands.dddsample.dddsample.v1.domain.dao.InterviewDao;
-import org.littlahands.dddsample.dddsample.v1.domain.dao.ScreeningDao;
+import org.littlahands.dddsample.dddsample.v1.domain.dao.InterviewRepository;
+import org.littlahands.dddsample.dddsample.v1.domain.dao.ScreeningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,9 +20,9 @@ import static org.littlahands.dddsample.dddsample.shared.Const.CONST_EMAIL_REGEX
 @Service
 public class ScreeningApplicationServiceV1 {
   @Autowired
-  private ScreeningDao screeningDao;
+  private ScreeningRepository screeningRepository;
   @Autowired
-  private InterviewDao interviewDao;
+  private InterviewRepository interviewRepository;
 
   /**
    * 面談から新規候補者を登録する
@@ -47,7 +47,7 @@ public class ScreeningApplicationServiceV1 {
     // メールアドレスは引数のものを登録
     screening.setApplicantEmailAddress(
         applicantEmailAddress);
-    screeningDao.insert(screening);
+    screeningRepository.insert(screening);
   }
 
   // 文字列の空白チェック用メソッド
@@ -84,7 +84,7 @@ public class ScreeningApplicationServiceV1 {
     // 応募日は操作日付を使用
     screening.setApplyDate(LocalDate.now());
     screening.setApplicantEmailAddress(applicantEmailAddress);
-    screeningDao.insert(screening);
+    screeningRepository.insert(screening);
   }
 
   /**
@@ -96,7 +96,7 @@ public class ScreeningApplicationServiceV1 {
       throws ApplicationException {
 
     // 保存されている採用選考オブジェクトを取得
-    ScreeningV1 screening = screeningDao.findScreeningById(screeningId).get();
+    ScreeningV1 screening = screeningRepository.findScreeningById(screeningId).get();
 
     // 面接設定をしてよいステータスかをチェック
     if (screening.getStatus() != ScreeningStatusV1.Interview) {
@@ -105,7 +105,7 @@ public class ScreeningApplicationServiceV1 {
 
     // 保存されている面接オブジェクトの一覧を取得
     List<InterviewV1> interviews =
-        interviewDao.findByScreeningId(screeningId);
+        interviewRepository.findByScreeningId(screeningId);
 
     InterviewV1 interview = new InterviewV1();
     interview.setInterviewId(UUID.randomUUID().toString());
@@ -113,7 +113,7 @@ public class ScreeningApplicationServiceV1 {
     // 面接次数は保存されているインタビューの数+1とする
     interview.setInterviewNumber(interviews.size() + 1);
     interview.setScreeningDate(interviewDate);
-    interviewDao.insert(interview);
+    interviewRepository.insert(interview);
   }
 
   // 面談から面接に進む処理は省略
@@ -121,9 +121,9 @@ public class ScreeningApplicationServiceV1 {
   //
 
 
-  public ScreeningApplicationServiceV1(ScreeningDao screeningDao, InterviewDao interviewDao) {
-    this.screeningDao = screeningDao;
-    this.interviewDao = interviewDao;
+  public ScreeningApplicationServiceV1(ScreeningRepository screeningRepository, InterviewRepository interviewRepository) {
+    this.screeningRepository = screeningRepository;
+    this.interviewRepository = interviewRepository;
   }
 
   public ScreeningApplicationServiceV1() {

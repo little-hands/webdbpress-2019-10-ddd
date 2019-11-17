@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class ScreeningMockDao implements ScreeningDao {
+public class ScreeningMockRepository implements ScreeningRepository {
 
     @Override
     public Optional<ScreeningV1> findScreeningById(String screeningId) {

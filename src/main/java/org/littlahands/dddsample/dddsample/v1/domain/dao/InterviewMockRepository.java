@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class InterviewMockDao implements InterviewDao {
+public class InterviewMockRepository implements InterviewRepository {
 
     @Override
     public Optional<InterviewV1> findById(String interviewId) {

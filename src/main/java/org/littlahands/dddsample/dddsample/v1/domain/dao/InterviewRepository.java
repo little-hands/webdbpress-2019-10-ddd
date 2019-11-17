@@ -5,7 +5,7 @@ import org.littlahands.dddsample.dddsample.v1.domain.InterviewV1;
 import java.util.List;
 import java.util.Optional;
 
-public interface InterviewDao {
+public interface InterviewRepository {
     Optional<InterviewV1> findById(String interviewId);
 
     List<InterviewV1> findByScreeningId(String screeningId);

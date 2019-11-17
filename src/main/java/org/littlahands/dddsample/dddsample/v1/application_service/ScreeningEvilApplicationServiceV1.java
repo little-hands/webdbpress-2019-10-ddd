@@ -2,7 +2,7 @@ package org.littlahands.dddsample.dddsample.v1.application_service;
 
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningStatusV1;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningV1;
-import org.littlahands.dddsample.dddsample.v1.domain.dao.ScreeningDao;
+import org.littlahands.dddsample.dddsample.v1.domain.dao.ScreeningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Service
 public class ScreeningEvilApplicationServiceV1 {
   @Autowired
-  private ScreeningDao screeningDao;
+  private ScreeningRepository screeningRepository;
 
   /**
    * 新規候補者を登録するが、
@@ -38,7 +38,7 @@ public class ScreeningEvilApplicationServiceV1 {
     // × メールアドレスはバリデーションなしで引数の値をそのまま保存
     screening.setApplicantEmailAddress(applicantEmailAddress);
 
-    screeningDao.insert(screening);
+    screeningRepository.insert(screening);
   }
 
 

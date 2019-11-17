@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.littlahands.dddsample.dddsample.shared.ApplicationException;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningStatusV1;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningV1;
+import org.littlahands.dddsample.dddsample.v1.domain.dao.InterviewRepository;
+import org.littlahands.dddsample.dddsample.v1.domain.dao.ScreeningRepository;
 
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
@@ -15,14 +17,14 @@ import static org.junit.Assert.assertThat;
 
 public class ScreeningApplicationServiceV1Test {
   private ScreeningApplicationServiceV1 applicationService;
-  private ScreeningImMemoryDao screeningDao;
-  private InterviewInMemoryDao interviewDao;
+  private ScreeningRepository screeningRepository;
+  private InterviewRepository interviewRepository;
 
   @Before
   public void setup() {
-    screeningDao = new ScreeningImMemoryDao();
-    interviewDao = new InterviewInMemoryDao();
-    applicationService = new ScreeningApplicationServiceV1(screeningDao, interviewDao);
+    screeningRepository = new ScreeningInMemoryRepository();
+    interviewRepository = new InterviewInMemoryRepository();
+    applicationService = new ScreeningApplicationServiceV1(screeningRepository, interviewRepository);
   }
 
   // startFromPreInterview
@@ -34,7 +36,7 @@ public class ScreeningApplicationServiceV1Test {
     applicationService.startFromPreInterview(emailAddress);
 
     // then: 採用進捗が保存される
-    ScreeningV1 savedScreening = screeningDao.findScreeningByEmailAddress(emailAddress).get();
+    ScreeningV1 savedScreening = screeningRepository.findScreeningByEmailAddress(emailAddress).get();
     assertThat(savedScreening.getScreeningId(), is(notNullValue()));
     assertThat(savedScreening.getStatus(), is(ScreeningStatusV1.NotApplied));
     assertThat(savedScreening.getApplyDate(), is(nullValue()));
@@ -69,7 +71,7 @@ public class ScreeningApplicationServiceV1Test {
     applicationService.apply(emailAddress);
 
     // then: 採用進捗が保存される
-    ScreeningV1 savedScreening = screeningDao.findScreeningByEmailAddress(emailAddress).get();
+    ScreeningV1 savedScreening = screeningRepository.findScreeningByEmailAddress(emailAddress).get();
     assertThat(savedScreening.getScreeningId(), is(notNullValue()));
     assertThat(savedScreening.getStatus(), is(ScreeningStatusV1.Interview));
     assertThat(savedScreening.getApplyDate(), is(notNullValue()));

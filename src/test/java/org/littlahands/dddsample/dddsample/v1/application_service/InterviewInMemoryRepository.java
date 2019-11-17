@@ -1,13 +1,13 @@
 package org.littlahands.dddsample.dddsample.v1.application_service;
 
 import org.littlahands.dddsample.dddsample.v1.domain.InterviewV1;
-import org.littlahands.dddsample.dddsample.v1.domain.dao.InterviewDao;
+import org.littlahands.dddsample.dddsample.v1.domain.dao.InterviewRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 @Component
-public class InterviewInMemoryDao implements InterviewDao {
+public class InterviewInMemoryRepository implements InterviewRepository {
     private Map<String, InterviewV1> data = new HashMap<>();
 
     @Override

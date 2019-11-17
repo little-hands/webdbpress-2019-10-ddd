@@ -4,7 +4,7 @@ import org.littlahands.dddsample.dddsample.v1.domain.ScreeningV1;
 
 import java.util.Optional;
 
-public interface ScreeningDao {
+public interface ScreeningRepository {
     Optional<ScreeningV1> findScreeningById(String screeningId);
 
     void insert(ScreeningV1 screening);
