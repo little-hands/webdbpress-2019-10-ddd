@@ -44,6 +44,7 @@ public class ScreeningApplicationServiceV1Test {
     assertThat(savedScreening.getScreeningId(), is(notNullValue())); // idは推測できないので、ひとまずnullではないこと
     assertThat(savedScreening.getStatus(), is(ScreeningStatusV1.NotApplied)); // 面談からの場合はステータス「未応募」で登録
     assertThat(savedScreening.getApplyDate(), is(nullValue())); // 未応募なので応募日はnull
+    assertThat(savedScreening.getApplicantEmailAddress(), is(emailAddress));
   }
 
   @Test(expected = ApplicationException.class)
@@ -79,6 +80,7 @@ public class ScreeningApplicationServiceV1Test {
     assertThat(savedScreening.getScreeningId(), is(notNullValue()));
     assertThat(savedScreening.getStatus(), is(ScreeningStatusV1.Interview)); // 面接からの場合はステータス「面接」で登録
     assertThat(savedScreening.getApplyDate(), is(notNullValue())); // 応募日は操作日付を使用(一旦nullでないことを確認)
+    assertThat(savedScreening.getApplicantEmailAddress(), is(emailAddress));
   }
 
 
