@@ -7,7 +7,6 @@ import org.littlahands.dddsample.dddsample.shared.ApplicationException;
 import org.littlahands.dddsample.dddsample.v1.domain.InterviewV1;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningStatusV1;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningV1;
-import org.littlahands.dddsample.dddsample.v1.domain.dao.InterviewRepository;
 import org.littlahands.dddsample.dddsample.v1.domain.dao.ScreeningRepository;
 
 import java.time.LocalDate;
@@ -22,13 +21,11 @@ import static org.junit.Assert.assertThat;
 public class ScreeningApplicationServiceV1Test {
   private ScreeningApplicationServiceV1 applicationService;
   private ScreeningRepository screeningRepository;
-  private InterviewRepository interviewRepository;
 
   @Before
   public void setup() {
     screeningRepository = new ScreeningInMemoryRepository();
-    interviewRepository = new InterviewInMemoryRepository();
-    applicationService = new ScreeningApplicationServiceV1(screeningRepository, interviewRepository);
+    applicationService = new ScreeningApplicationServiceV1(screeningRepository);
   }
 
   // startFromPreInterview
@@ -107,7 +104,9 @@ public class ScreeningApplicationServiceV1Test {
     applicationService.addNextInterview(screeningId, interviewDate);
 
     // then:
-    List<InterviewV1> interviews = interviewRepository.findByScreeningId(screeningId);
+//    List<InterviewV1> interviews = interviewRepository.findByScreeningId(screeningId);
+    ScreeningV1 savedScreening = screeningRepository.findScreeningByEmailAddress(emailAddress).get();
+    List<InterviewV1> interviews = savedScreening.getInterviews();
     assertThat(interviews.size(), is(1));
 
     InterviewV1 interview = interviews.get(0);

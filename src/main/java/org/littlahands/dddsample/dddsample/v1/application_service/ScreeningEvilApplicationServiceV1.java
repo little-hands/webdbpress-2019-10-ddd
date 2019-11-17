@@ -1,13 +1,9 @@
 package org.littlahands.dddsample.dddsample.v1.application_service;
 
-import org.littlahands.dddsample.dddsample.v1.domain.ScreeningStatusV1;
-import org.littlahands.dddsample.dddsample.v1.domain.ScreeningV1;
 import org.littlahands.dddsample.dddsample.v1.domain.dao.ScreeningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
 
 /**
  * V1の実装だと、間違った実装が容易に作れてしまうという実例
