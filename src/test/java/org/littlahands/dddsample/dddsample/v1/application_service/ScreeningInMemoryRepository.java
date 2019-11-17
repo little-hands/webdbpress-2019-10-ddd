@@ -25,16 +25,10 @@ public class ScreeningInMemoryRepository implements ScreeningRepository {
   }
 
   @Override
-  public Optional<ScreeningV1> findScreeningByEmailAddress(String emailAddress) {
-    try {
-      EmailAddress address = new EmailAddress(emailAddress);
-      return data.entrySet().stream()
-          .filter(e -> e.getValue().getApplicantEmailAddress().equals(address))
-          .map(Map.Entry::getValue)
-          .findAny();
-    } catch (ApplicationException e) {
-      e.printStackTrace(); // todo
-      return Optional.empty();
-    }
+  public Optional<ScreeningV1> findScreeningByEmailAddress(EmailAddress emailAddress) {
+    return data.entrySet().stream()
+        .filter(e -> e.getValue().getApplicantEmailAddress().equals(emailAddress))
+        .map(Map.Entry::getValue)
+        .findAny();
   }
 }

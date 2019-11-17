@@ -38,7 +38,7 @@ public class ScreeningApplicationServiceV1Test {
     applicationService.startFromPreInterview(emailAddress);
 
     // then: 採用進捗が保存される
-    ScreeningV1 savedScreening = screeningRepository.findScreeningByEmailAddress(emailAddress).get();
+    ScreeningV1 savedScreening = screeningRepository.findScreeningByEmailAddress(new EmailAddress(emailAddress)).get();
     assertThat(savedScreening.getScreeningId(), is(notNullValue())); // idは推測できないので、ひとまずnullではないこと
     assertThat(savedScreening.getStatus(), is(ScreeningStatusV1.NotApplied)); // 面談からの場合はステータス「未応募」で登録
     assertThat(savedScreening.getApplyDate(), is(nullValue())); // 未応募なので応募日はnull
@@ -74,7 +74,7 @@ public class ScreeningApplicationServiceV1Test {
     applicationService.apply(emailAddress);
 
     // then: 採用進捗が保存される
-    ScreeningV1 savedScreening = screeningRepository.findScreeningByEmailAddress(emailAddress).get();
+    ScreeningV1 savedScreening = screeningRepository.findScreeningByEmailAddress(new EmailAddress(emailAddress)).get();
     assertThat(savedScreening.getScreeningId(), is(notNullValue()));
     assertThat(savedScreening.getStatus(), is(ScreeningStatusV1.Interview)); // 面接からの場合はステータス「面接」で登録
     assertThat(savedScreening.getApplyDate(), is(notNullValue())); // 応募日は操作日付を使用(一旦nullでないことを確認)
@@ -106,7 +106,7 @@ public class ScreeningApplicationServiceV1Test {
 
     // then:
 //    List<InterviewV1> interviews = interviewRepository.findByScreeningId(screeningId);
-    ScreeningV1 savedScreening = screeningRepository.findScreeningByEmailAddress(emailAddress).get();
+    ScreeningV1 savedScreening = screeningRepository.findScreeningByEmailAddress(new EmailAddress(emailAddress)).get();
     List<InterviewV1> interviews = savedScreening.getInterviews();
     assertThat(interviews.size(), is(1));
 
