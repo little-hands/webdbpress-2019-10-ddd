@@ -6,12 +6,7 @@ import lombok.Setter;
 import org.littlahands.dddsample.dddsample.shared.ApplicationException;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
-import java.util.regex.Pattern;
-
-import static org.littlahands.dddsample.dddsample.shared.Const.CONST_EMAIL_REGEX;
 
 @Setter(AccessLevel.PRIVATE)
 @Getter
@@ -25,10 +20,10 @@ public class ScreeningV1 {
   // 応募者メールアドレス
   private EmailAddress applicantEmailAddress;
 
-  private List<InterviewV1> interviews;
+  private Interviews interviews;
 
   private ScreeningV1() {
-    interviews = new ArrayList<>();
+    interviews = new Interviews();
   }
 
   public static ScreeningV1 startFromPreInterview(EmailAddress applicantEmailAddress) {
@@ -61,20 +56,13 @@ public class ScreeningV1 {
     if (!this.status.canAddInterview()) {
       throw new ApplicationException("不正な操作です");
     }
-    InterviewV1 interview = new InterviewV1();
-    interview.setInterviewId(UUID.randomUUID().toString());
-    interview.setScreeningId(screeningId);
-    // 面接次数は保存されているインタビューの数+1とする
-    interview.setInterviewNumber(interviews.size() + 1);
-    interview.setScreeningDate(interviewDate);
-    interviews.add(interview);
+    interviews.addNextInterview(screeningId, interviewDate);
   }
 
   // private methods
 
 
-  public List<InterviewV1> getInterviews() {
+  public Interviews getInterviews() {
     return this.interviews;
-
   }
 }

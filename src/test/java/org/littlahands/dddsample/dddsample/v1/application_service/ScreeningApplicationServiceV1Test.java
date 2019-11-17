@@ -4,14 +4,10 @@ package org.littlahands.dddsample.dddsample.v1.application_service;
 import org.junit.Before;
 import org.junit.Test;
 import org.littlahands.dddsample.dddsample.shared.ApplicationException;
-import org.littlahands.dddsample.dddsample.v1.domain.EmailAddress;
-import org.littlahands.dddsample.dddsample.v1.domain.InterviewV1;
-import org.littlahands.dddsample.dddsample.v1.domain.ScreeningStatusV1;
-import org.littlahands.dddsample.dddsample.v1.domain.ScreeningV1;
+import org.littlahands.dddsample.dddsample.v1.domain.*;
 import org.littlahands.dddsample.dddsample.v1.domain.dao.ScreeningRepository;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
@@ -105,12 +101,11 @@ public class ScreeningApplicationServiceV1Test {
     applicationService.addNextInterview(screeningId, interviewDate);
 
     // then:
-//    List<InterviewV1> interviews = interviewRepository.findByScreeningId(screeningId);
     ScreeningV1 savedScreening = screeningRepository.findScreeningByEmailAddress(new EmailAddress(emailAddress)).get();
-    List<InterviewV1> interviews = savedScreening.getInterviews();
+    Interviews interviews = savedScreening.getInterviews();
     assertThat(interviews.size(), is(1));
 
-    InterviewV1 interview = interviews.get(0);
+    InterviewV1 interview = interviews.get(0).get();
     assertThat(interview.getScreeningDate(), is(interviewDate)); // 面接日が登録時に指定した日付であること
     assertThat(interview.getInterviewNumber(), is(1)); // 面接次数が1であること
   }
