@@ -31,7 +31,7 @@ public class ScreeningV1 {
     interviews = new ArrayList<>();
   }
 
-  public static ScreeningV1 startFromPreInterview(String applicantEmailAddress) throws ApplicationException {
+  public static ScreeningV1 startFromPreInterview(EmailAddress applicantEmailAddress) {
     ScreeningV1 screening = new ScreeningV1();
     // IDはUUIDを使用
     screening.setScreeningId(UUID.randomUUID().toString());
@@ -40,20 +40,18 @@ public class ScreeningV1 {
     // 未応募なので応募日はnull
     screening.setApplyDate(null);
     // メールアドレスは引数のものを登録
-    screening.setApplicantEmailAddress(
-        new EmailAddress(applicantEmailAddress));
+    screening.setApplicantEmailAddress(applicantEmailAddress);
     return screening;
   }
 
-  public static ScreeningV1 apply(String applicantEmailAddress) throws ApplicationException {
-
+  public static ScreeningV1 apply(EmailAddress applicantEmailAddress) {
     ScreeningV1 screening = new ScreeningV1();
     screening.setScreeningId(UUID.randomUUID().toString());
     // 面接からの場合はステータス「面接」で登録
     screening.setStatus(ScreeningStatusV1.Interview);
     // 応募日は操作日付を使用
     screening.setApplyDate(LocalDate.now());
-    screening.setApplicantEmailAddress(new EmailAddress(applicantEmailAddress));
+    screening.setApplicantEmailAddress(applicantEmailAddress);
     return screening;
   }
 
