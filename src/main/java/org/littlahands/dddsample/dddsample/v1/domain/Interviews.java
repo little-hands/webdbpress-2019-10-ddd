@@ -22,16 +22,11 @@ public class Interviews {
       return Optional.empty();
     }
     return Optional.of(interviews.get(interviewNumber));
-
   }
 
-  void addNextInterview(String screeningId, LocalDate interviewDate) {
-    InterviewV1 interview = new InterviewV1();
-    interview.setInterviewId(UUID.randomUUID().toString());
-    interview.setScreeningId(screeningId);
+  void addNextInterview(LocalDate interviewDate) {
     // 面接次数は保存されているインタビューの数+1とする
-    interview.setInterviewNumber(interviews.size() + 1);
-    interview.setScreeningDate(interviewDate);
+    InterviewV1 interview = new InterviewV1(interviews.size() + 1, interviewDate);
     interviews.add(interview);
   }
 }

@@ -19,7 +19,7 @@ public class InterviewsTest {
     assertThat(interviewV1, is(Optional.empty()));
 
     // when: 1つ追加してからgetするとすると
-    interviews.addNextInterview("sampleId", LocalDate.now());
+    interviews.addNextInterview(LocalDate.now());
     // then: 値が取れる
     assertThat(interviews.get(0).isPresent(), is(true));
   }

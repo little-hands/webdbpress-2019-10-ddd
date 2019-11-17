@@ -1,6 +1,7 @@
 package org.littlahands.dddsample.dddsample.v1.domain.dao;
 
 import org.littlahands.dddsample.dddsample.v1.domain.EmailAddress;
+import org.littlahands.dddsample.dddsample.v1.domain.ScreeningId;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningV1;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +11,7 @@ import java.util.Optional;
 public class ScreeningMockRepository implements ScreeningRepository {
 
     @Override
-    public Optional<ScreeningV1> findScreeningById(String screeningId) {
+    public Optional<ScreeningV1> findScreeningById(ScreeningId screeningId) {
         // select文省略
         return Optional.empty();
     }

@@ -2,6 +2,7 @@ package org.littlahands.dddsample.dddsample.v1.application_service;
 
 import org.littlahands.dddsample.dddsample.shared.ApplicationException;
 import org.littlahands.dddsample.dddsample.v1.domain.EmailAddress;
+import org.littlahands.dddsample.dddsample.v1.domain.ScreeningId;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningV1;
 import org.littlahands.dddsample.dddsample.v1.domain.dao.ScreeningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class ScreeningApplicationServiceV1 {
    * 面談から新規候補者を登録する
    */
   @Transactional
-  public String startFromPreInterview(String applicantEmailAddress)
+  public ScreeningId startFromPreInterview(String applicantEmailAddress)
       throws ApplicationException {
     ScreeningV1 screening = ScreeningV1.startFromPreInterview(new EmailAddress(applicantEmailAddress));
     screeningRepository.insert(screening);
@@ -30,7 +31,7 @@ public class ScreeningApplicationServiceV1 {
    * 新規応募者を登録する
    */
   @Transactional
-  public String apply(String applicantEmailAddress) throws ApplicationException {
+  public ScreeningId apply(String applicantEmailAddress) throws ApplicationException {
     ScreeningV1 screening = ScreeningV1.apply(new EmailAddress(applicantEmailAddress));
     screeningRepository.insert(screening);
     return screening.getScreeningId();
@@ -43,7 +44,7 @@ public class ScreeningApplicationServiceV1 {
   public void addNextInterview(String screeningId, LocalDate interviewDate)
       throws ApplicationException {
     // 保存されている採用選考オブジェクトを取得
-    ScreeningV1 screening = screeningRepository.findScreeningById(screeningId).get();
+    ScreeningV1 screening = screeningRepository.findScreeningById(new ScreeningId(screeningId)).get();
 
     // 保存されている面接オブジェクトの一覧を取得
     screening.addNextInterview(interviewDate);

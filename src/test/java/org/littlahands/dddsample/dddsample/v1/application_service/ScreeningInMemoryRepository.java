@@ -1,7 +1,7 @@
 package org.littlahands.dddsample.dddsample.v1.application_service;
 
-import org.littlahands.dddsample.dddsample.shared.ApplicationException;
 import org.littlahands.dddsample.dddsample.v1.domain.EmailAddress;
+import org.littlahands.dddsample.dddsample.v1.domain.ScreeningId;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningV1;
 import org.littlahands.dddsample.dddsample.v1.domain.dao.ScreeningRepository;
 import org.springframework.stereotype.Component;
@@ -12,10 +12,10 @@ import java.util.Optional;
 
 @Component
 public class ScreeningInMemoryRepository implements ScreeningRepository {
-  private Map<String, ScreeningV1> data = new HashMap<>();
+  private Map<ScreeningId, ScreeningV1> data = new HashMap<>();
 
   @Override
-  public Optional<ScreeningV1> findScreeningById(String screeningId) {
+  public Optional<ScreeningV1> findScreeningById(ScreeningId screeningId) {
     return Optional.ofNullable(data.get(screeningId));
   }
 

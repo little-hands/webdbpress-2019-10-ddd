@@ -94,11 +94,11 @@ public class ScreeningApplicationServiceV1Test {
   public void addNextInterview_success() throws ApplicationException {
     // given: 面談からの採用選考が登録されている
     String emailAddress = "a@example.com";
-    String screeningId = applicationService.apply(emailAddress);
+    ScreeningId screeningId = applicationService.apply(emailAddress);
 
     // when: 登録済み採用選考IDを指定して、面接日を登録すると
     LocalDate interviewDate = LocalDate.of(2020, 1, 1);
-    applicationService.addNextInterview(screeningId, interviewDate);
+    applicationService.addNextInterview(screeningId.getValue(), interviewDate);
 
     // then:
     ScreeningV1 savedScreening = screeningRepository.findScreeningByEmailAddress(new EmailAddress(emailAddress)).get();
@@ -115,13 +115,13 @@ public class ScreeningApplicationServiceV1Test {
   public void addNextInterview_fail_by_status() throws ApplicationException {
     // given: 面談からの採用選考が登録されている
     String emailAddress = "a@example.com";
-    String screeningId = applicationService.startFromPreInterview(emailAddress);
+    ScreeningId screeningId = applicationService.startFromPreInterview(emailAddress);
 
     // when: まだ面談状態の採用選考IDを指定して、面接日を登録すると
     LocalDate interviewDate = LocalDate.of(2020, 1, 1);
 
     // then: 例外が投げられる
-    applicationService.addNextInterview(screeningId, interviewDate);
+    applicationService.addNextInterview(screeningId.getValue(), interviewDate);
 
   }
 
