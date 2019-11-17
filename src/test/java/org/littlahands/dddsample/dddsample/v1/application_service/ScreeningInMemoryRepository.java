@@ -1,5 +1,6 @@
 package org.littlahands.dddsample.dddsample.v1.application_service;
 
+import org.littlahands.dddsample.dddsample.v1.domain.EmailAddress;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningV1;
 import org.littlahands.dddsample.dddsample.v1.domain.dao.ScreeningRepository;
 import org.springframework.stereotype.Component;
@@ -24,8 +25,9 @@ public class ScreeningInMemoryRepository implements ScreeningRepository {
 
     @Override
     public Optional<ScreeningV1> findScreeningByEmailAddress(String emailAddress) {
+        EmailAddress address = new EmailAddress(emailAddress);
         return data.entrySet().stream()
-            .filter(e -> e.getValue().getApplicantEmailAddress().equals(emailAddress))
+            .filter(e -> e.getValue().getApplicantEmailAddress().equals(address))
             .map(Map.Entry::getValue)
             .findAny();
     }

@@ -23,7 +23,7 @@ public class ScreeningV1 {
   // 採用選考ステータス
   private ScreeningStatusV1 status;
   // 応募者メールアドレス
-  private String applicantEmailAddress;
+  private EmailAddress applicantEmailAddress;
 
   private List<InterviewV1> interviews;
 
@@ -45,7 +45,7 @@ public class ScreeningV1 {
     screening.setApplyDate(null);
     // メールアドレスは引数のものを登録
     screening.setApplicantEmailAddress(
-        applicantEmailAddress);
+        new EmailAddress(applicantEmailAddress));
     return screening;
   }
 
@@ -59,7 +59,7 @@ public class ScreeningV1 {
     screening.setStatus(ScreeningStatusV1.Interview);
     // 応募日は操作日付を使用
     screening.setApplyDate(LocalDate.now());
-    screening.setApplicantEmailAddress(applicantEmailAddress);
+    screening.setApplicantEmailAddress(new EmailAddress(applicantEmailAddress));
     return screening;
   }
 

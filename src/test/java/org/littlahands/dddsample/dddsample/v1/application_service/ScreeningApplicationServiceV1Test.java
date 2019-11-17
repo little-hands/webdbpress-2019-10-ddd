@@ -4,6 +4,7 @@ package org.littlahands.dddsample.dddsample.v1.application_service;
 import org.junit.Before;
 import org.junit.Test;
 import org.littlahands.dddsample.dddsample.shared.ApplicationException;
+import org.littlahands.dddsample.dddsample.v1.domain.EmailAddress;
 import org.littlahands.dddsample.dddsample.v1.domain.InterviewV1;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningStatusV1;
 import org.littlahands.dddsample.dddsample.v1.domain.ScreeningV1;
@@ -41,7 +42,7 @@ public class ScreeningApplicationServiceV1Test {
     assertThat(savedScreening.getScreeningId(), is(notNullValue())); // idは推測できないので、ひとまずnullではないこと
     assertThat(savedScreening.getStatus(), is(ScreeningStatusV1.NotApplied)); // 面談からの場合はステータス「未応募」で登録
     assertThat(savedScreening.getApplyDate(), is(nullValue())); // 未応募なので応募日はnull
-    assertThat(savedScreening.getApplicantEmailAddress(), is(emailAddress));
+    assertThat(savedScreening.getApplicantEmailAddress(), is(new EmailAddress(emailAddress)));
   }
 
   @Test(expected = ApplicationException.class)
@@ -77,7 +78,7 @@ public class ScreeningApplicationServiceV1Test {
     assertThat(savedScreening.getScreeningId(), is(notNullValue()));
     assertThat(savedScreening.getStatus(), is(ScreeningStatusV1.Interview)); // 面接からの場合はステータス「面接」で登録
     assertThat(savedScreening.getApplyDate(), is(notNullValue())); // 応募日は操作日付を使用(一旦nullでないことを確認)
-    assertThat(savedScreening.getApplicantEmailAddress(), is(emailAddress));
+    assertThat(savedScreening.getApplicantEmailAddress(), is(new EmailAddress(emailAddress)));
   }
 
 
