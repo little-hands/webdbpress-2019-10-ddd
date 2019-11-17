@@ -1,5 +1,6 @@
 package org.littlahands.dddsample.dddsample.v1.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.littlahands.dddsample.dddsample.shared.ApplicationException;
@@ -10,7 +11,7 @@ import java.util.regex.Pattern;
 
 import static org.littlahands.dddsample.dddsample.shared.Const.CONST_EMAIL_REGEX;
 
-@Setter
+@Setter(AccessLevel.PRIVATE)
 @Getter
 public class ScreeningV1 {
   // 採用選考ID
@@ -30,7 +31,8 @@ public class ScreeningV1 {
     validateEmailAddress(applicantEmailAddress);
 
     ScreeningV1 screening = new ScreeningV1();
-    // IDはUUIDを使用
+    // IDはUUIDを使用o
+
     screening.setScreeningId(UUID.randomUUID().toString());
     // 面談からの場合はステータス「未応募」で登録
     screening.setStatus(ScreeningStatusV1.NotApplied);
