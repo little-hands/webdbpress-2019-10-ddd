@@ -28,7 +28,7 @@ public class ScreeningApplicationServiceV1 {
    * 面談から新規候補者を登録する
    */
   @Transactional
-  public void startFromPreInterview(String applicantEmailAddress)
+  public String startFromPreInterview(String applicantEmailAddress)
       throws ApplicationException {
     // 入力チェック
     if (isEmpty(applicantEmailAddress) ||
@@ -48,6 +48,7 @@ public class ScreeningApplicationServiceV1 {
     screening.setApplicantEmailAddress(
         applicantEmailAddress);
     screeningRepository.insert(screening);
+    return screening.getScreeningId();
   }
 
   // 文字列の空白チェック用メソッド
@@ -70,7 +71,7 @@ public class ScreeningApplicationServiceV1 {
    * 新規応募者を登録する
    */
   @Transactional
-  public void apply(String applicantEmailAddress)
+  public String apply(String applicantEmailAddress)
       throws ApplicationException {
     if (isEmpty(applicantEmailAddress) ||
         isInvalidFormatEmailAddress(applicantEmailAddress)) {
@@ -85,6 +86,7 @@ public class ScreeningApplicationServiceV1 {
     screening.setApplyDate(LocalDate.now());
     screening.setApplicantEmailAddress(applicantEmailAddress);
     screeningRepository.insert(screening);
+    return screening.getScreeningId();
   }
 
   /**
@@ -117,8 +119,6 @@ public class ScreeningApplicationServiceV1 {
   }
 
   // 面談から面接に進む処理は省略
-
-  //
 
 
   public ScreeningApplicationServiceV1(ScreeningRepository screeningRepository, InterviewRepository interviewRepository) {
