@@ -30,23 +30,7 @@ public class ScreeningApplicationServiceV1 {
   @Transactional
   public String startFromPreInterview(String applicantEmailAddress)
       throws ApplicationException {
-    // 入力チェック
-    if (isEmpty(applicantEmailAddress) ||
-        isInvalidFormatEmailAddress(applicantEmailAddress)) {
-      throw new ApplicationException(
-          "メールアドレスが正しくありません");
-    }
-    // デフォルトコンストラクタでインスタンス作成
-    ScreeningV1 screening = new ScreeningV1();
-    // IDはUUIDを使用
-    screening.setScreeningId(UUID.randomUUID().toString());
-    // 面談からの場合はステータス「未応募」で登録
-    screening.setStatus(ScreeningStatusV1.NotApplied);
-    // 未応募なので応募日はnull
-    screening.setApplyDate(null);
-    // メールアドレスは引数のものを登録
-    screening.setApplicantEmailAddress(
-        applicantEmailAddress);
+    ScreeningV1 screening = ScreeningV1.startFromPreInterview(applicantEmailAddress);
     screeningRepository.insert(screening);
     return screening.getScreeningId();
   }
@@ -73,18 +57,7 @@ public class ScreeningApplicationServiceV1 {
   @Transactional
   public String apply(String applicantEmailAddress)
       throws ApplicationException {
-    if (isEmpty(applicantEmailAddress) ||
-        isInvalidFormatEmailAddress(applicantEmailAddress)) {
-      throw new ApplicationException("メールアドレスが正しくありません");
-    }
-
-    ScreeningV1 screening = new ScreeningV1();
-    screening.setScreeningId(UUID.randomUUID().toString());
-    // 面接からの場合はステータス「面接」で登録
-    screening.setStatus(ScreeningStatusV1.Interview);
-    // 応募日は操作日付を使用
-    screening.setApplyDate(LocalDate.now());
-    screening.setApplicantEmailAddress(applicantEmailAddress);
+    ScreeningV1 screening = ScreeningV1.apply(applicantEmailAddress);
     screeningRepository.insert(screening);
     return screening.getScreeningId();
   }

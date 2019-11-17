@@ -24,21 +24,21 @@ public class ScreeningEvilApplicationServiceV1 {
   @Transactional
   public void evilStartFromPreInterview(String applicantEmailAddress) {
 
-    ScreeningV1 screening = new ScreeningV1();
-
-    // × IDは現在時刻をtoStringしたもの → 時刻が被ったら死亡
-    screening.setScreeningId(LocalDate.now().toString());
-
-    // × いきなり不合格で登録
-    screening.setStatus(ScreeningStatusV1.Refected);
-
-    // × なぜか7日前を指定
-    screening.setApplyDate(LocalDate.now().minusDays(7));
-
-    // × メールアドレスはバリデーションなしで引数の値をそのまま保存
-    screening.setApplicantEmailAddress(applicantEmailAddress);
-
-    screeningRepository.insert(screening);
+//    ScreeningV1 screening = new ScreeningV1();
+//
+//    // × IDは現在時刻をtoStringしたもの → 時刻が被ったら死亡
+//    screening.setScreeningId(LocalDate.now().toString());
+//
+//    // × いきなり不合格で登録
+//    screening.setStatus(ScreeningStatusV1.Refected);
+//
+//    // × なぜか7日前を指定
+//    screening.setApplyDate(LocalDate.now().minusDays(7));
+//
+//    // × メールアドレスはバリデーションなしで引数の値をそのまま保存
+//    screening.setApplicantEmailAddress(applicantEmailAddress);
+//
+//    screeningRepository.insert(screening);
   }
 
 

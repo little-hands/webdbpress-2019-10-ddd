@@ -11,7 +11,7 @@ public class ScreeningMockRepository implements ScreeningRepository {
     @Override
     public Optional<ScreeningV1> findScreeningById(String screeningId) {
         // select文省略
-        return Optional.ofNullable(new ScreeningV1());
+        return Optional.empty();
     }
 
     @Override
