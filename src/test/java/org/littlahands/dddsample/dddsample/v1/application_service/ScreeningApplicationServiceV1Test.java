@@ -81,6 +81,17 @@ public class ScreeningApplicationServiceV1Test {
     assertThat(savedScreening.getApplyDate(), is(notNullValue())); // 応募日は操作日付を使用(一旦nullでないことを確認)
   }
 
+
+  @Test(expected = ApplicationException.class)
+  public void apply_fail_emailAddress_invalid() throws ApplicationException {
+    // when: 正しくない書式のメールアドレスで登録すると
+    String emailAddress = "aexample.com";
+
+    // then: 例外が投げられる
+    applicationService.apply(emailAddress);
+  }
+
+
   // addNextInterview
 
   @Test
