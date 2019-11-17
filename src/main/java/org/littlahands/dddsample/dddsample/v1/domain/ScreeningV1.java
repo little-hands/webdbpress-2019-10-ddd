@@ -16,4 +16,15 @@ public class ScreeningV1 {
   private ScreeningStatusV1 status;
   // 応募者メールアドレス
   private String applicantEmailAddress;
+
+  public ScreeningV1() {
+  }
+
+  public static ScreeningV1 startFromPreInterview() {
+    return new ScreeningV1();
+  }
+
+  public static ScreeningV1 apply() {
+    return new ScreeningV1();
+  }
 }
