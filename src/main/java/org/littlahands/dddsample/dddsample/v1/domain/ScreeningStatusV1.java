@@ -17,6 +17,9 @@ public enum ScreeningStatusV1 {
   /**
    * 合格
    */
-  Passed
+  Passed;
 
+  public boolean canAddInterview() {
+    return this == ScreeningStatusV1.Interview;
+  }
 }

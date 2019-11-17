@@ -58,7 +58,7 @@ public class ScreeningV1 {
 
   public void addNextInterview(LocalDate interviewDate) throws ApplicationException {
     // 面接設定をしてよいステータスかをチェック
-    if (this.status != ScreeningStatusV1.Interview) {
+    if (!this.status.canAddInterview()) {
       throw new ApplicationException("不正な操作です");
     }
     InterviewV1 interview = new InterviewV1();
