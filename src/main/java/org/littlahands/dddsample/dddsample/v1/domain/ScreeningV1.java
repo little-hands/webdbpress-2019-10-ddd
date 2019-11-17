@@ -32,12 +32,8 @@ public class ScreeningV1 {
   }
 
   public static ScreeningV1 startFromPreInterview(String applicantEmailAddress) throws ApplicationException {
-    // 入力チェック
-    validateEmailAddress(applicantEmailAddress);
-
     ScreeningV1 screening = new ScreeningV1();
-    // IDはUUIDを使用o
-
+    // IDはUUIDを使用
     screening.setScreeningId(UUID.randomUUID().toString());
     // 面談からの場合はステータス「未応募」で登録
     screening.setStatus(ScreeningStatusV1.NotApplied);
@@ -50,8 +46,6 @@ public class ScreeningV1 {
   }
 
   public static ScreeningV1 apply(String applicantEmailAddress) throws ApplicationException {
-    // 入力チェック
-    validateEmailAddress(applicantEmailAddress);
 
     ScreeningV1 screening = new ScreeningV1();
     screening.setScreeningId(UUID.randomUUID().toString());
@@ -80,29 +74,6 @@ public class ScreeningV1 {
 
   // private methods
 
-  private static void validateEmailAddress(String applicantEmailAddress) throws ApplicationException {
-    if (isEmpty(applicantEmailAddress) ||
-        isInvalidFormatEmailAddress(applicantEmailAddress)) {
-      throw new ApplicationException(
-          "メールアドレスが正しくありません");
-    }
-  }
-
-  // 文字列の空白チェック用メソッド
-  private static boolean isEmpty(String value) {
-    return value == null || value.length() == 0;
-  }
-
-  // メールアドレスのバリデーション用メソッド
-  private static boolean isInvalidFormatEmailAddress(String email) {
-    if (email == null) {
-      return false;
-    }
-    // CONST_EMAIL_REGEXは適切な正規表現が記述されているとする
-    String emailRegex = CONST_EMAIL_REGEX;
-    return !Pattern.compile(emailRegex)
-        .matcher(email).matches();
-  }
 
   public List<InterviewV1> getInterviews() {
     return this.interviews;
